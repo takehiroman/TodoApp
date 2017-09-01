@@ -1,0 +1,25 @@
+{
+  "name": "TodoApp",
+  "version": "1.0.0",
+  "description": "課題用のリポジトリ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takehiroman/TodoApp.git"
+  },
+  "keywords": [],
+  "author": "takehiro tsuzaki <takehiro@fake.com> (http://zakimoto.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/takehiroman/TodoApp/issues"
+  },
+  "homepage": "https://github.com/takehiroman/TodoApp#readme",
+  "dependencies": {
+    "ejs": "2.5.7",
+    "express": "4.15.4",
+    "path": "0.12.7"
+  }
+}
