@@ -24,7 +24,14 @@ mongoose.connect(dbUrl,dbErr => {
             if(err) response.status(500)
                 else response.status(200).send(`${todo} was succes.`)
         })
-    })    
+    })
+    
+    app.get('/api/todos',(request,response) => {
+        Todo.find({},(err,todoArray) => {
+            if(err) response.status(500).send()
+            else response.status(200).send(todoArray)
+        })
+    })
 
     app.listen(port,err => {
         if(err) throw new Error(err)
