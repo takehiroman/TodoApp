@@ -22,7 +22,12 @@ mongoose.connect(dbUrl,dbErr => {
             todo,
         }).save(err => {
             if(err) response.status(500)
-                else response.status(200).send(`${todo} was succes.`)
+                else {
+                    Todo.find({},(findErr,todoArray) => {
+                        if(findErr) response.status(500).send()
+                            else response.status(200).send(todoArray)
+                    })
+                }
         })
     })
     

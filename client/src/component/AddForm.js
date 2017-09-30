@@ -1,5 +1,5 @@
 import React from 'react'
-import { addTodo,initializeForm } from '../actions'
+import { addTodo,initializeForm,requestData,receivedDataSuccess,receiveDataFaild } from '../actions'
 import axios from 'axios'
 
 const AddForm = ({ store }) => {
@@ -10,15 +10,18 @@ const AddForm = ({ store }) => {
         //formのsubmitした時のデフォルト動作を抑制
         e.preventDefault()
 
+        store.dispatch(requestData())
         axios.post('/api/todos',{
             todo,
         })
         .then(response => {
-            console.log(response)
             store.dispatch(initializeForm())
+            const todoArray = response.data
+            store.dispatch(receivedDataSuccess(todoArray))
         })
         .catch(err => {
             console.log(new Error(err))
+            store.dispatch(receiveDataFaild())
         })
     }
 
