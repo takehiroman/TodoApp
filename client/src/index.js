@@ -1,19 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './component/App'
-import { createStore } from 'redux'
-import rootReducer from './reducers'
+import {BrowserRouter,Route} from 'react-router-dom'
+import DetailTodo from './component/DetailTodoList/DetailTodo'
+import store from './store'
 
-const store = createStore(rootReducer)
-
+this.store = store()
 const render = () => {
     ReactDOM.render(
-        <App store={store} />, 
+        <div>
+        <App store={this.store} />
+        </div>,
         document.getElementById('root')
     );
 }
 
-store.subscribe(() => {
+this.store.subscribe(() => {
     render()
 })
 render()

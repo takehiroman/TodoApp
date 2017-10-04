@@ -1,4 +1,5 @@
 export const TODO = 'TODO'
+export const LIMITDAY = 'LIMITDAY'
 export const INITIALIZE_FORM = 'INITIALIZE_FORM'
 export const REQUEST_DATA = 'REQUEST_DATA'
 export const RECEIVE_DATA_SUCCESS = 'RECEIVE_DATA_SUCCESS'
@@ -8,6 +9,11 @@ export const RECEIVE_DATA_FAILD = 'RECEIVE_DATA_FAILD'
 export const addTodo = todo => ({
     type: TODO,
     todo,
+})
+
+export const addDay = limitDay => ({
+    type: LIMITDAY,
+    limitDay,
 })
 
 export const requestData = () => ({

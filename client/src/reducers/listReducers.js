@@ -1,22 +1,21 @@
 import {  combineReducers } from 'redux'
-import { TODO,INITIALIZE_FORM,REQUEST_DATA,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from './actions'
+import { TODOLIST,INITIALIZE_FORM,REQUEST_DATA,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from '../actions/listActions'
 
 //初期のstate
 const initialState = {
-  form:{  todo: '',
+  form:{  todoList: '',
   },
-  todos: {
-      isFetching: false,
-      todoArray: [],
+  todoLists: {
+      todoListArray: [],
   },
 }
 //formのreducer
 const formReducer = (state = initialState.form,action) => {
     switch (action.type){
-        case TODO:
+        case TODOLIST:
             return{
                 ...state,
-                todo: action.todo,
+                todoList: action.todoList,
             }
         case INITIALIZE_FORM:
             return initialState.form
@@ -25,23 +24,20 @@ const formReducer = (state = initialState.form,action) => {
     }
 }
 //todoのreducer
-const todosReducer = (state = initialState.todos,action) => {
+const todosReducer = (state = initialState.todoLists,action) => {
     switch (action.type){
         case REQUEST_DATA:
         return{
             ...state,
-            isFetching:true,
         }
         case RECEIVE_DATA_SUCCESS:
         return{
             ...state,
-            isFetching:false,
-            todoArray: action.todoArray,
+            todoListArray: action.todoListArray,
         }
         case RECEIVE_DATA_FAILD:
             return {
-                ...state,
-                isFetching:false,
+             ...state,
             }
         default:
             return state
@@ -52,7 +48,7 @@ const todosReducer = (state = initialState.todos,action) => {
 
 const rootReducer = combineReducers({
     form: formReducer,
-    todos:todosReducer
+    todoLists:todosReducer
 })
 
 export default rootReducer
