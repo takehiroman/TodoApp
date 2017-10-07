@@ -3,10 +3,11 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose')
 const app = express();
-import Todo from './todo'
+import TodoList from './todolist'
+import dateFormat from 'dateformat'
 const port = 3001
 
-const dbUrl = 'mongodb://localhost/todo'
+const dbUrl = 'mongodb://localhost/todoList'
 
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
@@ -16,25 +17,26 @@ mongoose.connect(dbUrl,dbErr => {
     else console.log('db connected')
 
     app.post('/api/todos',(request,response) => {
-        const { todo } = request.body
+        const { todoList } = request.body
 
-        new Todo({
-            todo,
+        new TodoList({
+            todoList,
         }).save(err => {
             if(err) response.status(500)
                 else {
-                    Todo.find({},(findErr,todoArray) => {
+                    TodoList.find({},(findErr,todoListArray) => {
                         if(findErr) response.status(500).send()
-                            else response.status(200).send(todoArray)
+                            else response.status(200).send(todoListArray)
                     })
                 }
         })
     })
+
     
     app.get('/api/todos',(request,response) => {
-        Todo.find({},(err,todoArray) => {
+        TodoList.find({},(err,todoListArray) => {
             if(err) response.status(500).send()
-            else response.status(200).send(todoArray)
+            else response.status(200).send(todoListArray)
         })
     })
 
