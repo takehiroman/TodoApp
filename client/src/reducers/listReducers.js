@@ -2,7 +2,7 @@ import {  combineReducers } from 'redux'
 import { TODOLIST,INITIALIZE_FORM,REQUEST_DATA,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from '../actions/listActions'
 
 //初期のstate
-const initialState = {
+export const initialState = {
   form:{  todoList: '',
   },
   todoLists: {

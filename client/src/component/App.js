@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import DetailTodo from './DetailTodoList/DetailTodo'
-import AddForm from './TodoList/AddForm';
-import TodoList from './TodoList/TodoList';
-import {Provider} from 'react-redux'
-import {Route} from 'react-router-dom'
+import AddForm from '../containers/AddForm';
+import TodoList from '../containers/TodoList';
 
 class App extends Component {
+
+  constructor(props){
+    super(props)
+  }
   
   render() {
     return (
       <div>
         <h1>TodoApp</h1>
-        <AddForm store={this.props.store} />
-        <TodoList  store={this.props.store} />
+        <AddForm  />
+        <TodoList   />
       </div>
     );
   }

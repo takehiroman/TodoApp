@@ -1,27 +1,33 @@
-import React from 'react'
-import { addTodo,initializeForm,requestData,receivedDataSuccess,receiveDataFaild } from '../../actions/listActions'
+import React,{Component} from 'react'
 import axios from 'axios'
 
-const AddForm = ({ store }) => {
-    //formからの内容を取得する
-    const { todoList } = store.getState().form
+class AddForm extends Component{
 
-    const handleSubmit = e => {
+    constructor(props){
+        super(props)
+        this.props = props
+    }
+
+    render(){
+        //formからの内容を取得する
+        const {todoList} = this.props
+
+        const handleSubmit = e => {
         //formのsubmitした時のデフォルト動作を抑制
         e.preventDefault()
 
-        store.dispatch(requestData())
+        this.props.requestData()
         axios.post('/api/todos',{
             todoList,
         })
         .then(response => {
-            store.dispatch(initializeForm())
+            this.props.initializeForm()
             const todoListArray = response.data
-            store.dispatch(receivedDataSuccess(todoListArray))
+            this.props.receivedDataSuccess(todoListArray)
         })
         .catch(err => {
             console.log(new Error(err))
-            store.dispatch(receiveDataFaild())
+            this.props.receiveDataFaild()
         })
     }
 
@@ -30,7 +36,7 @@ const AddForm = ({ store }) => {
             <form onSubmit={e => handleSubmit(e)}>
                 <label>
                     新しいTodoList:
-                    <input value={todoList} onChange={e => store.dispatch(addTodo(e.target.value))} />
+                    <input value={todoList} onChange={e => this.props.addTodo(e.target.value)} />
                 </label>
                 <button type="submit">リストの追加</button>
             </form>
@@ -38,6 +44,8 @@ const AddForm = ({ store }) => {
 
 
     )
+    }
+
 }
 
 export default AddForm
