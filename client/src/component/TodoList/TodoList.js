@@ -25,11 +25,12 @@ componentDidMount(){
 
 
 render(){
+    console.log(this.props.todoLists)
     return(
         <div>
         {this.props.todoLists.map (todoList => (
             <li key={todoList._id}>
-            <Link to={`/${todoList.todoList}`}>{`${todoList.todoList}`}</Link>
+            <Link to={`/${todoList._id}`}>{`${todoList.todoList}`}</Link>
             </li>
         ))}
         <hr />

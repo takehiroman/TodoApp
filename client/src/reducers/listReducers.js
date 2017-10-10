@@ -1,5 +1,5 @@
 import {  combineReducers } from 'redux'
-import { TODOLIST,INITIALIZE_FORM,REQUEST_DATA,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from '../actions/listActions'
+import { TODOLIST,TODO,DAY, INITIALIZE_FORM,REQUEST_DATA,RECEIVE_TODO_DATA_SUCCESS,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from '../actions/listActions'
 
 //初期のstate
 export const initialState = {
@@ -8,6 +8,13 @@ export const initialState = {
   todoLists: {
       todoListArray: [],
   },
+   todoForm:{
+       todo: '',
+       limitDay:''
+   },
+   todos:{
+       todoArray:[]
+   },
 }
 //formのreducer
 const formReducer = (state = initialState.form,action) => {
@@ -38,7 +45,7 @@ const todosReducer = (state = initialState.todoLists,action) => {
         case RECEIVE_DATA_FAILD:
             return {
              ...state,
-            }
+        }
         default:
             return state
     }
@@ -46,9 +53,38 @@ const todosReducer = (state = initialState.todoLists,action) => {
     
 }
 
+const todoFormReducer = (state = initialState.todoForm,action) => {
+    switch (action.type){
+        case TODO:
+            return{
+                ...state,
+                todo:action.todo
+            }
+        case DAY:
+            return{
+                ...state,
+                limitDay:action.limitDay
+            }
+            case RECEIVE_TODO_DATA_SUCCESS:
+            return{
+                ...state,
+                todoArray: action.todoArray,
+            }
+            case RECEIVE_DATA_FAILD:
+                return {
+                 ...state,
+            }
+        case INITIALIZE_FORM:
+            return initialState.todoForm
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     form: formReducer,
-    todoLists:todosReducer
+    todoLists:todosReducer,
+    todoForm: todoFormReducer
 })
 
 export default rootReducer

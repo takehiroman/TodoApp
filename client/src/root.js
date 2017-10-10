@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Routes from './routes'
 import {Provider} from 'react-redux'
-import {BrowserRouter} from 'react-router-dom'
 import Store from './store'
 
 class Root extends Component{
@@ -14,9 +13,7 @@ class Root extends Component{
     render(){
         return(
             <Provider store={this.store}>
-            <BrowserRouter>
                  <Routes />
-            </BrowserRouter>
             </Provider>
         )
     }

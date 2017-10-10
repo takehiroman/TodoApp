@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-import AddTodoForm from './AddTodoForm';
 import DetailTodo from './DetailTodo';
-import todoReducer from  '../../reducers/Reducers'
-import { createStore } from 'redux'
+import AddTodo from '../../containers/AddTodoForm';
 
 class Todo extends Component {
+
+  constructor(props){
+    super(props)
+    this.props = props
+  }
   
   render() {
-    const store = createStore(todoReducer)
+    //pathを取得
+    const pathname = this.props.location.pathname
+    //先頭のスラッシュを置換
+    const location = pathname.replace(/\u002f/g, "");
+
     return (
       <div>
-        <AddTodoForm store={store} />
-        <DetailTodo store={store} />
+        <AddTodo location={location} />
       </div>
     );
   }

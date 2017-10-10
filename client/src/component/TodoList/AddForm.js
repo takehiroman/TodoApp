@@ -10,8 +10,7 @@ class AddForm extends Component{
 
     render(){
         //formからの内容を取得する
-        const {todoList} = this.props
-
+        const todoList = this.props.form
         const handleSubmit = e => {
         //formのsubmitした時のデフォルト動作を抑制
         e.preventDefault()
