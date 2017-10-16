@@ -32,7 +32,7 @@ mongoose.connect(dbUrl,dbErr => {
         })
     })
     app.post('/api/todo',(request,response) => {
-        console.log(request.body.todoname)
+        console.log(request.body.pathname)
         //const { todo,createDay,limitDay } = request.body
         const todos = {
             createDay:request.body.createDay,
@@ -41,15 +41,16 @@ mongoose.connect(dbUrl,dbErr => {
         }
 
         TodoList.findByIdAndUpdate(
-            {_id:request.body.todoname},
+            {_id:request.body.pathname},
             {$push:{todos:todos}},
             { safe: true, upsert: true },
             err => {
                 if(err) response.status(500)
                 else {
-                    TodoList.find({},(findErr,todoListArray) => {
+                    TodoList.findById({_id:request.body.pathname},{"todos":1},(findErr,todoArray) => {
                         if(findErr) response.status(500).send()
-                        else response.status(200).send(todoListArray)
+                        else response.status(200).send(todoArray)
+                        console.log(todoArray)
                     })
                 }
         })
@@ -61,6 +62,13 @@ mongoose.connect(dbUrl,dbErr => {
         TodoList.find({},(err,todoListArray) => {
             if(err) response.status(500).send()
             else response.status(200).send(todoListArray)
+        })
+    })
+    app.get(`/api/todo`,(request,response) => {
+        const { pathdesu } = request.query
+        TodoList.findById({_id:pathdesu},{"todos":1},(err,todoArray) => {
+            if(err) response.status(500).send()
+            else response.status(200).send(todoArray)
         })
     })
 

@@ -11,7 +11,7 @@ class AddTodoForm extends React.Component {
 
     render(){
     const location = this.props.location
-    const todoname = location
+    const pathname = location
     //formからの内容を取得する
     const todo = this.props.formTodo
     const limitDay = this.props.formDay
@@ -26,16 +26,17 @@ class AddTodoForm extends React.Component {
 
         this.props.requestData()
         axios.post('/api/todo',{
-            todoname,
+            pathname,
             todo,
             createDay,
             limitDay,
         })
         .then(response => {
             console.log(response)
-            const _todoArray = response.data
-            this.props.receivedDataSuccess(_todoArray)
             this.props.initializeForm()
+            console.log("mogemoge"+response.data)
+            const _todoArray = response.data.todos
+            this.props.receivedTodoDataSuccess(_todoArray)
             
         })
         .catch(err => {

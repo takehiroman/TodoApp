@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const Todo = require('./todo')
 
 mongoose.Promise = global.Promise
 

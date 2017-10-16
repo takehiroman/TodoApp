@@ -14,6 +14,7 @@ componentDidMount(){
         axios.get('/api/todos')
         .then(response => {
             const _todoListArray = response.data
+            console.log(_todoListArray)
             this.props.receivedDataSuccess(_todoListArray)
         })
         .catch(err => {

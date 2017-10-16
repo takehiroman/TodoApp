@@ -3,10 +3,6 @@ import AddForm from '../containers/AddForm';
 import TodoList from '../containers/TodoList';
 
 class App extends Component {
-
-  constructor(props){
-    super(props)
-  }
   
   render() {
     return (

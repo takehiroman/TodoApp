@@ -8,6 +8,6 @@ const TodoSchema = new mongoose.Schema({
     limitDay:Date,
 })
 
-const Todo = mongoose.model('todo',TodoSchema)
+const Todo = mongoose.model('Todo',TodoSchema)
 
 export default Todo

@@ -65,15 +65,6 @@ const todoFormReducer = (state = initialState.todoForm,action) => {
                 ...state,
                 limitDay:action.limitDay
             }
-            case RECEIVE_TODO_DATA_SUCCESS:
-            return{
-                ...state,
-                todoArray: action.todoArray,
-            }
-            case RECEIVE_DATA_FAILD:
-                return {
-                 ...state,
-            }
         case INITIALIZE_FORM:
             return initialState.todoForm
         default:
@@ -81,10 +72,33 @@ const todoFormReducer = (state = initialState.todoForm,action) => {
     }
 }
 
+const todoReducer = (state = initialState.todos,action) => {
+    switch (action.type){
+        case REQUEST_DATA:
+        return{
+            ...state,
+        }
+        case RECEIVE_TODO_DATA_SUCCESS:
+        return{
+            ...state,
+            todoArray: action.todoArray,
+        }
+        case RECEIVE_DATA_FAILD:
+            return {
+             ...state,
+        }
+        default:
+            return state
+    }
+
+    
+}
+
 const rootReducer = combineReducers({
     form: formReducer,
     todoLists:todosReducer,
-    todoForm: todoFormReducer
+    todoForm: todoFormReducer,
+    todos:todoReducer
 })
 
 export default rootReducer

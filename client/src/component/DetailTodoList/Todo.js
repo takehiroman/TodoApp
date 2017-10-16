@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DetailTodo from './DetailTodo';
+import DetailTodo from '../../containers/Todo';
 import AddTodo from '../../containers/AddTodoForm';
 
 class Todo extends Component {
@@ -18,6 +18,7 @@ class Todo extends Component {
     return (
       <div>
         <AddTodo location={location} />
+        <DetailTodo location={location} />
       </div>
     );
   }

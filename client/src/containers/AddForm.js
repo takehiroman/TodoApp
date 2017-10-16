@@ -25,8 +25,6 @@ const mapDispatchToProps = (dispatch) => {
         initializeForm:() => {
             dispatch(initializeForm())
         }
-
-
     }
 }
 
