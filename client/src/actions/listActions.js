@@ -1,6 +1,7 @@
 export const TODOLIST = 'TODOLIST'
 export const DAY = 'DAY'
 export const TODO = 'TODO'
+export const CHECK = 'CHECK'
 export const INITIALIZE_FORM = 'INITIALIZE_FORM'
 export const REQUEST_DATA = 'REQUEST_DATA'
 export const RECEIVE_DATA_SUCCESS = 'RECEIVE_DATA_SUCCESS'
@@ -21,6 +22,10 @@ export const addDay = limitDay => ({
 export const addTodos = todo => ({
     type:TODO,
     todo,
+})
+
+export const checkTodo = () => ({
+    type:CHECK,
 })
 
 export const requestData = () => ({

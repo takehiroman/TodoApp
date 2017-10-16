@@ -57,6 +57,22 @@ mongoose.connect(dbUrl,dbErr => {
 
     })
 
+    app.put('/api/todo',(request,response) => {
+        console.log(request.body)
+        const {id} = request.body
+        console.log(id)
+        TodoList.findByIdAndUpdate({_id:id},{$set:{"check":true}},err => {
+            if(err)response.status(500).send()
+            else{
+                TodoList.findById({_id:id},{"todos":1},(findErr,todoArray) => {
+                    if(findErr) response.status(500).send()
+                    else response.status(200).send(todoArray)
+                    console.log(todoArray)
+                })
+            }
+        })
+    })
+
     
     app.get('/api/todos',(request,response) => {
         TodoList.find({},(err,todoListArray) => {

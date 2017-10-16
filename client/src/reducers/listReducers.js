@@ -1,5 +1,5 @@
 import {  combineReducers } from 'redux'
-import { TODOLIST,TODO,DAY, INITIALIZE_FORM,REQUEST_DATA,RECEIVE_TODO_DATA_SUCCESS,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from '../actions/listActions'
+import { TODOLIST,TODO,DAY,CHECK, INITIALIZE_FORM,REQUEST_DATA,RECEIVE_TODO_DATA_SUCCESS,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from '../actions/listActions'
 
 //初期のstate
 export const initialState = {
@@ -10,7 +10,7 @@ export const initialState = {
   },
    todoForm:{
        todo: '',
-       limitDay:''
+       limitDay:'',
    },
    todos:{
        todoArray:[]

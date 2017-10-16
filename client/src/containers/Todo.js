@@ -1,11 +1,12 @@
 import {connect} from 'react-redux'
-import {requestData,receivedTodoDataSuccess,receiveDataFaild} from '../actions/listActions'
+import {requestData,checkTodo,receivedTodoDataSuccess,receiveDataFaild} from '../actions/listActions'
 import DetailTodoCompo from '../component/DetailTodoList/DetailTodo'
 
 const mapStateToProps = (state) => {
     console.log('state:',state)
     return{
-        todos:state.todos.todoArray
+        todos:state.todos.todoArray,
+        check:state.todos.check
     }
 }
 
@@ -19,7 +20,11 @@ const mapDispatchToProps = (dispatch) => {
         },
         receiveDataFaild:() => {
             dispatch(receiveDataFaild())
+        },
+        checkTodo:(check) => {
+            dispatch(checkTodo(check))
         }
+        
     }
 }
 

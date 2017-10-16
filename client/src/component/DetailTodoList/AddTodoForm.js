@@ -29,7 +29,7 @@ class AddTodoForm extends React.Component {
             pathname,
             todo,
             createDay,
-            limitDay,
+            limitDay
         })
         .then(response => {
             console.log(response)
