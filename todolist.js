@@ -1,22 +1,21 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 mongoose.Promise = global.Promise
 
 //スキーマ
 const TodoListSchema = new mongoose.Schema({
-    todoList: String,
-    todos:[
-        {
-        todo:String,
-        createDay:Date,
-        limitDay:Date,
+    todoList: { type: String },
+    createdDate : {type: Date, default: Date.now},
+    todos:[{
+        todo:{type:String},
+        createDay:{type: Date, default: Date.now},
+        limitDay:{type:Date},
         check:{type:Boolean,default:false}
-        }
-    ]
+    }]
 })
 
-//モデル
 
+//モデル
 const TodoList = mongoose.model('TodoList',TodoListSchema)
 
 export default TodoList

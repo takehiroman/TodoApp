@@ -1,19 +1,29 @@
 import {  combineReducers } from 'redux'
-import { TODOLIST,TODO,DAY,CHECK, INITIALIZE_FORM,REQUEST_DATA,RECEIVE_TODO_DATA_SUCCESS,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from '../actions/listActions'
+import { TODOLIST,TODO,DAY,CHECK,KEYWORD, INITIALIZE_FORM,REQUEST_DATA,RECEIVE_SEARCH_DATA_SUCCESS,RECEIVE_SEARCH_TODO_SUCCESS,RECEIVE_TODO_DATA_SUCCESS,RECEIVE_DATA_SUCCESS,RECEIVE_DATA_FAILD } from '../actions/listActions'
 
 //初期のstate
 export const initialState = {
   form:{  todoList: '',
   },
   todoLists: {
-      todoListArray: [],
+    todoListArray: [],
   },
    todoForm:{
        todo: '',
        limitDay:'',
+       check:false
    },
    todos:{
-       todoArray:[]
+    isFetching: false,
+    todoArray:[],
+    check:false
+   },
+   searchForm:{
+       word:'',
+   },
+   searchLists:{
+    searchListArray: [],
+    searchTodoArray:[]
    },
 }
 //formのreducer
@@ -87,6 +97,11 @@ const todoReducer = (state = initialState.todos,action) => {
             return {
              ...state,
         }
+        case CHECK:
+        return{
+            ...state,
+            check:true
+        }
         default:
             return state
     }
@@ -94,11 +109,54 @@ const todoReducer = (state = initialState.todos,action) => {
     
 }
 
+const searchFormReducer = (state = initialState.searchForm,action) => {
+    switch (action.type){
+        case KEYWORD:
+        return{
+            ...state,
+            word:action.word
+        }
+        case INITIALIZE_FORM:
+            return initialState.searchForm
+        default:
+        return state
+    }
+}
+const searchListReducer = (state = initialState.searchLists,action) => {
+    switch (action.type){
+        case REQUEST_DATA:
+        return{
+            ...state,
+            isFetching: false
+        }
+        case RECEIVE_SEARCH_DATA_SUCCESS:
+        return{
+            ...state,
+            searchListArray: action.searchListArray,
+            isFetching: true
+        }
+        case RECEIVE_SEARCH_TODO_SUCCESS:
+        return{
+            ...state,
+            searchTodoArray: action.searchTodoArray
+        }
+        case RECEIVE_DATA_FAILD:
+            return {
+             ...state,
+        }
+        default:
+        return state
+    }
+}
+
+
 const rootReducer = combineReducers({
     form: formReducer,
     todoLists:todosReducer,
     todoForm: todoFormReducer,
-    todos:todoReducer
+    todos:todoReducer,
+    searchForm:searchFormReducer,
+    searchLists:searchListReducer
 })
 
 export default rootReducer

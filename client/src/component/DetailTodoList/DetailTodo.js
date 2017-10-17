@@ -42,11 +42,10 @@ class DetailTodo extends React.Component{
 
 render(){
     console.log(this.props.todos)
-    const hoges = this.props.todos.todos
-    const check = this.props.todos.check
-
+    const TodoCount = this.props.todos.length<=0 ? <p>登録されたTodoはございません</p>:<p></p> 
     return(
         <div>
+        {TodoCount}
         {this.props.todos.map(todo => (
             <p key={todo._id}>
             <div>

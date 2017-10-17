@@ -28,7 +28,6 @@ class AddTodoForm extends React.Component {
         axios.post('/api/todo',{
             pathname,
             todo,
-            createDay,
             limitDay
         })
         .then(response => {

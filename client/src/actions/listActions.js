@@ -2,10 +2,13 @@ export const TODOLIST = 'TODOLIST'
 export const DAY = 'DAY'
 export const TODO = 'TODO'
 export const CHECK = 'CHECK'
+export const KEYWORD = 'KEYWORD'
 export const INITIALIZE_FORM = 'INITIALIZE_FORM'
 export const REQUEST_DATA = 'REQUEST_DATA'
 export const RECEIVE_DATA_SUCCESS = 'RECEIVE_DATA_SUCCESS'
 export const RECEIVE_TODO_DATA_SUCCESS = 'RECEIVE_TODO_DATA_SUCCESS'
+export const RECEIVE_SEARCH_TODO_SUCCESS = 'RECEIVE_SEARCH_TODO_SUCCESS'
+export const RECEIVE_SEARCH_DATA_SUCCESS = 'RECEIVE_SEARCH_DATA_SUCCESS'
 export const RECEIVE_DATA_FAILD = 'RECEIVE_DATA_FAILD'
 
 //action creaters
@@ -24,6 +27,11 @@ export const addTodos = todo => ({
     todo,
 })
 
+export const searchWord = word => ({
+    type:KEYWORD,
+    word,
+})
+
 export const checkTodo = () => ({
     type:CHECK,
 })
@@ -35,6 +43,15 @@ export const requestData = () => ({
 export const receivedDataSuccess = todoListArray => ({
     type:RECEIVE_DATA_SUCCESS,
     todoListArray,
+})
+
+export const receivedSearchDataSuccess = searchListArray => ({
+    type:RECEIVE_SEARCH_DATA_SUCCESS,
+    searchListArray
+})
+export const receivedSearchTodoSuccess = searchTodoArray => ({
+    type:RECEIVE_SEARCH_TODO_SUCCESS,
+    searchTodoArray
 })
 
 export const receivedTodoDataSuccess = todoArray => ({

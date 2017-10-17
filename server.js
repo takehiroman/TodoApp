@@ -7,7 +7,7 @@ import TodoList from './todolist'
 import dateFormat from 'dateformat'
 const port = 3001
 
-const dbUrl = 'mongodb://localhost/todoList'
+const dbUrl = 'mongodb://localhost/todoLists'
 
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
@@ -35,7 +35,6 @@ mongoose.connect(dbUrl,dbErr => {
         console.log(request.body.pathname)
         //const { todo,createDay,limitDay } = request.body
         const todos = {
-            createDay:request.body.createDay,
             limitDay:request.body.limitDay,
             todo:request.body.todo
         }
@@ -61,10 +60,10 @@ mongoose.connect(dbUrl,dbErr => {
         console.log(request.body)
         const {id} = request.body
         console.log(id)
-        TodoList.findByIdAndUpdate({_id:id},{$set:{"check":true}},err => {
+        TodoList.findByIdAndUpdate(id,{$set:{"check":true}},err => {
             if(err)response.status(500).send()
             else{
-                TodoList.findById({_id:id},{"todos":1},(findErr,todoArray) => {
+                TodoList.findById(id,{"todos":1},(findErr,todoArray) => {
                     if(findErr) response.status(500).send()
                     else response.status(200).send(todoArray)
                     console.log(todoArray)
@@ -85,6 +84,29 @@ mongoose.connect(dbUrl,dbErr => {
         TodoList.findById({_id:pathdesu},{"todos":1},(err,todoArray) => {
             if(err) response.status(500).send()
             else response.status(200).send(todoArray)
+        })
+    })
+
+    app.get('/api/search',(request,response) => {
+        const {word} = request.query
+        console.log(word)
+        TodoList.find({todoList:new RegExp(word, "i")},(err,todoListArray) => {
+            if(err) response.status(500).send()
+            else response.status(200).send(todoListArray)
+            console.log(todoListArray)
+            
+        }).sort({createdDate:-1})
+        
+    })
+
+    app.get('/api/searchTodo',(request,response) => {
+        const {word} = request.query
+        console.log(word)
+        TodoList.find({"todos.todo":new RegExp(word, "i")},(err,todoArray) => {
+            if(err) response.status(500).send()
+            else response.status(200).send(todoArray)
+
+            console.log(todoArray)
         })
     })
 
