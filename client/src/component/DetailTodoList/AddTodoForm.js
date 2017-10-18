@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import dateFormat from 'dateformat'
 
 class AddTodoForm extends React.Component {
 
@@ -15,10 +14,6 @@ class AddTodoForm extends React.Component {
     //formからの内容を取得する
     const todo = this.props.formTodo
     const limitDay = this.props.formDay
-    //const formatlimit = dateFormat(limitDay,"yyyy/mm/dd")
-    //現在時刻の取得
-    const timestamp = dateFormat(new Date(),"yyyy-mm-dd")
-    const createDay = timestamp
 
     const handleSubmit = e => {
         //formのsubmitした時のデフォルト動作を抑制

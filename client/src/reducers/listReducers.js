@@ -11,12 +11,11 @@ export const initialState = {
    todoForm:{
        todo: '',
        limitDay:'',
-       check:false
+       checked:false
    },
    todos:{
     isFetching: false,
     todoArray:[],
-    check:false
    },
    searchForm:{
        word:'',
@@ -58,9 +57,7 @@ const todosReducer = (state = initialState.todoLists,action) => {
         }
         default:
             return state
-    }
-
-    
+    }   
 }
 
 const todoFormReducer = (state = initialState.todoForm,action) => {
@@ -68,7 +65,7 @@ const todoFormReducer = (state = initialState.todoForm,action) => {
         case TODO:
             return{
                 ...state,
-                todo:action.todo
+                todo:action.todo,
             }
         case DAY:
             return{
@@ -77,6 +74,13 @@ const todoFormReducer = (state = initialState.todoForm,action) => {
             }
         case INITIALIZE_FORM:
             return initialState.todoForm
+        case CHECK:
+            if(state.todo !== action.todo){
+                return {...state}
+            }
+            return Object.assign({},state,{
+                checked:!state.checked
+            })
         default:
             return state
     }
@@ -98,10 +102,9 @@ const todoReducer = (state = initialState.todos,action) => {
              ...state,
         }
         case CHECK:
-        return{
-            ...state,
-            check:true
-        }
+        return state.todoArray.map((t) => 
+            todoFormReducer(t,action))
+
         default:
             return state
     }

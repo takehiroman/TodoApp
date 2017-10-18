@@ -6,6 +6,7 @@ class DetailTodo extends React.Component{
         super(props)
         this.props = props
         this.checkTodo = this.checkTodo.bind(this);
+        this.changeSelection = this.changeSelection.bind(this);
     }
     componentDidMount(){
         const location = this.props.location
@@ -14,8 +15,10 @@ class DetailTodo extends React.Component{
         this.props.requestData()
         axios.get('/api/todo/',{params:{pathdesu:pathname}})
         .then(response => {
+            console.log(response.data)
+            const todoList = response.data.todoList
             const _todoArray = response.data.todos
-            console.log("hoge:"+_todoArray)
+            console.log(_todoArray)
             this.props.receivedTodoDataSuccess(_todoArray)
         })
         .catch(err => {
@@ -25,10 +28,19 @@ class DetailTodo extends React.Component{
     }
 
 
-    checkTodo(id){
+    checkTodo(id,check){
+        var nextState = this.props.todos.map(todo => {
+            return {
+              id: todo._id,
+              checked: (todo._id === id ? !todo.check: todo.check)
+            };
+          });
+        console.log(nextState)
+        this.setState( {todos: nextState });
         this.props.requestData()
+        console.log(id)
         axios.put('/api/todo',{
-            id
+            id,check
         })
         .then(response => {
             const _todoArray = response.data
@@ -40,8 +52,19 @@ class DetailTodo extends React.Component{
         })
     }
 
+    changeSelection(id){
+        var nextState = this.props.todos.map(todo => {
+          return {
+            id: todo._id,
+            checked: (todo._id === id ? !todo.check: todo.check)
+          };
+        });
+      
+        console.log(nextState); // 確認用
+        this.setState( {todos: nextState });
+      }
+
 render(){
-    console.log(this.props.todos)
     const TodoCount = this.props.todos.length<=0 ? <p>登録されたTodoはございません</p>:<p></p> 
     return(
         <div>
@@ -49,7 +72,7 @@ render(){
         {this.props.todos.map(todo => (
             <p key={todo._id}>
             <div>
-            <input type="checkbox" onChange={() => this.checkTodo(todo._id)}  />{todo.todo}</div>
+            <input type="checkbox" checked={todo.checked} onChange={this.checkTodo.bind(this,todo._id,todo.check)} />{todo.todo}</div>
             <p>期限日:{todo.limitDay}</p>
             <p>作成日:{todo.createDay}</p>
             </p>

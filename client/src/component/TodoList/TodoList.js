@@ -30,7 +30,6 @@ render(){
         {this.props.todoLists.map (todoList => (
             <li key={todoList._id}>
             <Link to={`/${todoList._id}`}>{`${todoList.todoList}`}</Link>
-            <p>Todoは{todoList.todos.length}個です</p>
             </li>
         ))}
         <hr />

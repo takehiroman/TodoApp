@@ -6,7 +6,6 @@ const mapStateToProps = (state) => {
     console.log('state:',state)
     return{
         todos:state.todos.todoArray,
-        check:state.todos.check
     }
 }
 
@@ -21,8 +20,8 @@ const mapDispatchToProps = (dispatch) => {
         receiveDataFaild:() => {
             dispatch(receiveDataFaild())
         },
-        checkTodo:(check) => {
-            dispatch(checkTodo(check))
+        checkTodo:(todo) => {
+            dispatch(checkTodo(todo))
         }
         
     }

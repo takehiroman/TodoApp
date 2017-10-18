@@ -32,8 +32,9 @@ export const searchWord = word => ({
     word,
 })
 
-export const checkTodo = () => ({
+export const checkTodo = (todo) => ({
     type:CHECK,
+    todo
 })
 
 export const requestData = () => ({

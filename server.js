@@ -46,7 +46,7 @@ mongoose.connect(dbUrl,dbErr => {
             err => {
                 if(err) response.status(500)
                 else {
-                    TodoList.findById({_id:request.body.pathname},{"todos":1},(findErr,todoArray) => {
+                    TodoList.findById({_id:request.body.pathname},(findErr,todoArray) => {
                         if(findErr) response.status(500).send()
                         else response.status(200).send(todoArray)
                         console.log(todoArray)
@@ -58,9 +58,10 @@ mongoose.connect(dbUrl,dbErr => {
 
     app.put('/api/todo',(request,response) => {
         console.log(request.body)
-        const {id} = request.body
+        const {id,check} = request.body
         console.log(id)
-        TodoList.findByIdAndUpdate(id,{$set:{"check":true}},err => {
+        console.log(check)
+        TodoList.findByIdAndUpdate(id,err => {
             if(err)response.status(500).send()
             else{
                 TodoList.findById(id,{"todos":1},(findErr,todoArray) => {
@@ -81,7 +82,7 @@ mongoose.connect(dbUrl,dbErr => {
     })
     app.get(`/api/todo`,(request,response) => {
         const { pathdesu } = request.query
-        TodoList.findById({_id:pathdesu},{"todos":1},(err,todoArray) => {
+        TodoList.findById({_id:pathdesu},(err,todoArray) => {
             if(err) response.status(500).send()
             else response.status(200).send(todoArray)
         })
