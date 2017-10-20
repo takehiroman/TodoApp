@@ -1,5 +1,8 @@
 import React from 'react'
 import axios from 'axios'
+import moment from 'moment'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Table,TableBody,TableHeader,TableHeaderColumn,TableRowColumn,TableRow} from 'material-ui/Table'
 
 class DetailTodo extends React.Component{
     constructor(props){
@@ -67,17 +70,25 @@ class DetailTodo extends React.Component{
 render(){
     const TodoCount = this.props.todos.length<=0 ? <p>登録されたTodoはございません</p>:<p></p> 
     return(
+        <MuiThemeProvider>
         <div>
         {TodoCount}
+        <Table>
+            <TableHeader>
+                <TableRow><TableHeaderColumn>Todo</TableHeaderColumn><TableHeaderColumn>期限日</TableHeaderColumn><TableHeaderColumn>作成日</TableHeaderColumn></TableRow>
+            </TableHeader>
+        <TableBody>
         {this.props.todos.map(todo => (
-            <p key={todo._id}>
-            <div>
-            <input type="checkbox" checked={todo.checked} onChange={this.checkTodo.bind(this,todo._id,todo.check)} />{todo.todo}</div>
-            <p>期限日:{todo.limitDay}</p>
-            <p>作成日:{todo.createDay}</p>
-            </p>
+            <TableRow>
+            <TableRowColumn><input type="checkbox" checked={todo.checked} onChange={this.checkTodo.bind(this,todo._id,todo.check)} />{todo.todo}</TableRowColumn>
+            <TableRowColumn>{moment(todo.limitDay).format('YYYY/MM/DD')}</TableRowColumn>
+            <TableRowColumn>{moment(todo.createDay).format('YYYY//MM/DD')}</TableRowColumn>
+            </TableRow>
         ))}
+        </TableBody>
+        </Table>
         </div>
+        </MuiThemeProvider>
     )
 
 }

@@ -1,47 +1,63 @@
 import React,{Component} from 'react'
 import axios from 'axios'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 class AddForm extends Component{
 
     constructor(props){
         super(props)
         this.props = props
+        this.state = { errorText: '', value: props.value }
     }
 
     render(){
         //formからの内容を取得する
         const todoList = this.props.form
         const handleSubmit = e => {
-        //formのsubmitした時のデフォルト動作を抑制
-        e.preventDefault()
 
-        this.props.requestData()
-        axios.post('/api/todos',{
-            todoList,
-        })
-        .then(response => {
-            this.props.initializeForm()
-            const todoListArray = response.data
-            this.props.receivedDataSuccess(todoListArray)
-        })
-        .catch(err => {
-            console.log(new Error(err))
-            this.props.receiveDataFaild()
-        })
+
+        if (todoList === "") {
+            this.setState({ errorText: 'Todoリストが未入力です' })
+          } else if(todoList.length > 30) {
+            this.setState({ errorText: '30文字以内にしてください' })
+          } else {
+            //formのsubmitした時のデフォルト動作を抑制
+            e.preventDefault()
+            this.setState({ errorText: '' })
+            axios.post('/api/todos',{
+                todoList,
+            })
+            .then(response => {
+                this.props.initializeForm()
+                const todoListArray = response.data
+                this.props.receivedDataSuccess(todoListArray)
+            })
+            .catch(err => {
+                console.log(new Error(err))
+                this.props.receiveDataFaild()
+            })
+        }
+            
+
+        
     }
 
+
     return(
+        <MuiThemeProvider>
         <div>
-            <form onSubmit={e => handleSubmit(e)}>
+            <br />
+            <form>
                 <label>
-                    新しいTodoList:
-                    <input value={todoList} onChange={e => this.props.addTodo(e.target.value)} />
+                    新しいTodoList<br />
+                    <TextField hintText="リスト名" value={todoList} errorText= {this.state.errorText} onChange={e => this.props.addTodo(e.target.value)} />
                 </label>
-                <button type="submit">リストの追加</button>
+                <RaisedButton label="リストの追加" primary={true} onClick={e => handleSubmit(e)} />
             </form>
         </div>
-
-
+        </MuiThemeProvider>
     )
     }
 

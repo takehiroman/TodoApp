@@ -1,5 +1,8 @@
 import React,{Component} from 'react'
 import axios from 'axios'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 class SearchForm extends Component{
     constructor(props){
@@ -50,13 +53,14 @@ class SearchForm extends Component{
             })
         }
         return(
+            <MuiThemeProvider>
             <div>
-            <form onSubmit={e => handleSubmit(e)}>
-           <input value={keyword} onChange={e => this.props.searchWord(e.target.value)} />
-          <button type="submit">検索</button><br />
-          </form>
-
+                <form>
+                    <TextField hintText="キーワード" value={keyword} onChange={e => this.props.searchWord(e.target.value)} />
+                    <RaisedButton label="検索" primary={true} onClick={e => handleSubmit(e)} /><br />
+                </form>
             </div>
+            </MuiThemeProvider>
         )
     }
 }

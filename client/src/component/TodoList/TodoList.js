@@ -32,7 +32,6 @@ render(){
             <Link to={`/${todoList._id}`}>{`${todoList.todoList}`}</Link>
             </li>
         ))}
-        <hr />
         </div>
     )
 

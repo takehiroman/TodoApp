@@ -2,6 +2,7 @@ import {connect} from 'react-redux'
 import {requestData,checkTodo,receivedTodoDataSuccess,receiveDataFaild} from '../actions/listActions'
 import DetailTodoCompo from '../component/DetailTodoList/DetailTodo'
 
+
 const mapStateToProps = (state) => {
     console.log('state:',state)
     return{
