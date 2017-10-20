@@ -8,7 +8,6 @@ class DetailTodo extends React.Component{
     constructor(props){
         super(props)
         this.props = props
-        this.checkTodo = this.checkTodo.bind(this);
         this.changeSelection = this.changeSelection.bind(this);
     }
     componentDidMount(){
@@ -19,7 +18,6 @@ class DetailTodo extends React.Component{
         axios.get('/api/todo/',{params:{pathdesu:pathname}})
         .then(response => {
             console.log(response.data)
-            const todoList = response.data.todoList
             const _todoArray = response.data.todos
             console.log(_todoArray)
             this.props.receivedTodoDataSuccess(_todoArray)
@@ -31,29 +29,7 @@ class DetailTodo extends React.Component{
     }
 
 
-    checkTodo(id,check){
-        var nextState = this.props.todos.map(todo => {
-            return {
-              id: todo._id,
-              checked: (todo._id === id ? !todo.check: todo.check)
-            };
-          });
-        console.log(nextState)
-        this.setState( {todos: nextState });
-        this.props.requestData()
-        console.log(id)
-        axios.put('/api/todo',{
-            id,check
-        })
-        .then(response => {
-            const _todoArray = response.data
-            this.props.receivedTodoDataSuccess(_todoArray)
-        })
-        .catch(err => {
-            console.error(new Error(err))
-            this.props.receiveDataFaild()
-        })
-    }
+
 
     changeSelection(id){
         var nextState = this.props.todos.map(todo => {
@@ -67,25 +43,58 @@ class DetailTodo extends React.Component{
         this.setState( {todos: nextState });
       }
 
-render(){
+    render(){
+    const location = this.props.location
+    const pathname = location
+
+    const checkTodo = (id,check) => {
+        if(check === 0){
+            this.props.requestData()
+            axios.put('/api/todo/check',{
+                id,pathname
+            })
+            .then(response => {
+                const _todoArray = response.data.todos
+                this.props.receivedTodoDataSuccess(_todoArray)
+            })
+            .catch(err => {
+                this.props.receiveDataFaild()
+            })
+        }else {
+            this.props.requestData()
+            axios.put('/api/todo/uncheck',{
+                id,pathname
+            })
+            .then(response => {
+                const _todoArray = response.data.todos
+                this.props.receivedTodoDataSuccess(_todoArray)
+            })
+            .catch(err => {
+                this.props.receiveDataFaild()
+            })           
+        }
+
+    }
+
     const TodoCount = this.props.todos.length<=0 ? <p>登録されたTodoはございません</p>:<p></p> 
     return(
         <MuiThemeProvider>
         <div>
         {TodoCount}
         <Table>
-            <TableHeader>
-                <TableRow><TableHeaderColumn>Todo</TableHeaderColumn><TableHeaderColumn>期限日</TableHeaderColumn><TableHeaderColumn>作成日</TableHeaderColumn></TableRow>
+            <TableHeader  displaySelectAll={false}>
+                <TableRow><TableHeaderColumn>Todo</TableHeaderColumn><TableHeaderColumn>Todoの状態</TableHeaderColumn><TableHeaderColumn>期限日</TableHeaderColumn><TableHeaderColumn>作成日</TableHeaderColumn></TableRow>
             </TableHeader>
-        <TableBody>
-        {this.props.todos.map(todo => (
-            <TableRow>
-            <TableRowColumn><input type="checkbox" checked={todo.checked} onChange={this.checkTodo.bind(this,todo._id,todo.check)} />{todo.todo}</TableRowColumn>
-            <TableRowColumn>{moment(todo.limitDay).format('YYYY/MM/DD')}</TableRowColumn>
-            <TableRowColumn>{moment(todo.createDay).format('YYYY//MM/DD')}</TableRowColumn>
-            </TableRow>
-        ))}
-        </TableBody>
+            <TableBody deselectOnClickaway={false} showRowHover displayRowCheckbox={false}>
+            {this.props.todos.map(todo => (
+                <TableRow>
+                <TableRowColumn><p>{todo.todo}</p></TableRowColumn>
+                <TableRowColumn><button onClick={() => checkTodo(todo._id,todo.check)}>{todo.check===0?"未完了":"完了"}</button></TableRowColumn>
+                <TableRowColumn>{moment(todo.limitDay).format('YYYY/MM/DD')}</TableRowColumn>
+                <TableRowColumn>{moment(todo.createDay).format('YYYY//MM/DD')}</TableRowColumn>
+                </TableRow>
+            ))}
+            </TableBody>
         </Table>
         </div>
         </MuiThemeProvider>

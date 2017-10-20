@@ -4,7 +4,7 @@
   "description": "課題用のリポジトリ",
   "main": "server.js",
   "scripts": {
-    "start": "babel-node server.js"
+    "start": "babel-node server/server.js"
   },
   "repository": {
     "type": "git",

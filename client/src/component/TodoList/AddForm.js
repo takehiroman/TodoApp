@@ -17,7 +17,6 @@ class AddForm extends Component{
         const todoList = this.props.form
         const handleSubmit = e => {
 
-
         if (todoList === "") {
             this.setState({ errorText: 'Todoリストが未入力です' })
           } else if(todoList.length > 30) {
@@ -51,8 +50,8 @@ class AddForm extends Component{
             <br />
             <form>
                 <label>
-                    新しいTodoList<br />
-                    <TextField hintText="リスト名" value={todoList} errorText= {this.state.errorText} onChange={e => this.props.addTodo(e.target.value)} />
+                    新しいTodoリストを作成する<br />
+                    <TextField hintText="リスト名を入力してください" value={todoList} errorText= {this.state.errorText} onChange={e => this.props.addTodo(e.target.value)} />
                 </label>
                 <RaisedButton label="リストの追加" primary={true} onClick={e => handleSubmit(e)} />
             </form>

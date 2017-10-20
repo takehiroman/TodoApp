@@ -10,7 +10,7 @@ const TodoListSchema = new mongoose.Schema({
         todo:{type:String},
         createDay:{type: Date, default: Date.now},
         limitDay:{type:Date},
-        check:{type:Boolean,default:false}
+        check:{type:Number,default:0}
     }]
 })
 

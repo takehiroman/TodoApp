@@ -11,7 +11,7 @@ export const initialState = {
    todoForm:{
        todo: '',
        limitDay:'',
-       checked:false
+       check:0
    },
    todos:{
     isFetching: false,

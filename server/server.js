@@ -7,7 +7,7 @@ import TodoList from './todolist'
 import dateFormat from 'dateformat'
 const port = 3001
 
-const dbUrl = 'mongodb://localhost/todoLists'
+const dbUrl = 'mongodb://localhost/todoListss'
 
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
@@ -31,6 +31,7 @@ mongoose.connect(dbUrl,dbErr => {
                 }
         })
     })
+
     app.post('/api/todo',(request,response) => {
         console.log(request.body.pathname)
         //const { todo,createDay,limitDay } = request.body
@@ -56,15 +57,14 @@ mongoose.connect(dbUrl,dbErr => {
 
     })
 
-    app.put('/api/todo',(request,response) => {
+    app.put('/api/todo/check',(request,response) => {
         console.log(request.body)
-        const {id,check} = request.body
+        const {id,pathname} = request.body
         console.log(id)
-        console.log(check)
-        TodoList.findByIdAndUpdate(id,err => {
+        TodoList.update({'_id':pathname,'todos._id':id},{$inc:{'todos.$.check':1}},err => {
             if(err)response.status(500).send()
             else{
-                TodoList.findById(id,{"todos":1},(findErr,todoArray) => {
+                TodoList.findById({_id:request.body.pathname},{},(findErr,todoArray) => {
                     if(findErr) response.status(500).send()
                     else response.status(200).send(todoArray)
                     console.log(todoArray)
@@ -73,19 +73,35 @@ mongoose.connect(dbUrl,dbErr => {
         })
     })
 
+    app.put('/api/todo/uncheck',(request,response) => {
+        console.log(request.body)
+        const {id,pathname} = request.body
+        console.log(id)
+        TodoList.update({'_id':pathname,'todos._id':id},{$inc:{'todos.$.check':-1}},err => {
+            if(err)response.status(500).send()
+            else{
+                TodoList.findById({_id:request.body.pathname},{},(findErr,todoArray) => {
+                    if(findErr) response.status(500).send()
+                    else response.status(200).send(todoArray)
+                    console.log(todoArray)
+                })
+            }
+        })
+    })
     
     app.get('/api/todos',(request,response) => {
         TodoList.find({},(err,todoListArray) => {
             if(err) response.status(500).send()
             else response.status(200).send(todoListArray)
-        })
+        }).sort({createdDate:-1})
     })
+    
     app.get(`/api/todo`,(request,response) => {
         const { pathdesu } = request.query
         TodoList.findById({_id:pathdesu},(err,todoArray) => {
             if(err) response.status(500).send()
             else response.status(200).send(todoArray)
-        })
+        }).sort({createDay:1})
     })
 
     app.get('/api/search',(request,response) => {
@@ -108,7 +124,7 @@ mongoose.connect(dbUrl,dbErr => {
             else response.status(200).send(todoArray)
 
             console.log(todoArray)
-        })
+        }).sort({createdDate:-1})
     })
 
     app.listen(port,err => {

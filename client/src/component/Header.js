@@ -8,7 +8,7 @@ import List from 'material-ui/svg-icons/action/list';
 const Header = () => (
     <MuiThemeProvider>
     <AppBar
-    title="Todoアプリ"
+    title="Todoリスト"
     iconElementLeft = {
       <IconMenu
       iconButtonElement={<IconButton><List /></IconButton>}
@@ -25,7 +25,7 @@ const Header = () => (
       />
       </IconMenu>
     }
-  />
+    />
     </MuiThemeProvider>
 )
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Table,TableBody,TableHeader,TableHeaderColumn,TableRowColumn,TableRow} from 'material-ui/Table'
 
 class TodoList extends React.Component {
 
@@ -26,13 +28,23 @@ componentDidMount(){
 render(){
     console.log(this.props.todoLists)
     return(
+        <MuiThemeProvider>
         <div>
+        <Table>
+        <TableHeader  displaySelectAll={false}>
+            <TableRow><TableHeaderColumn>Todoリスト</TableHeaderColumn><TableHeaderColumn>Todoの数</TableHeaderColumn></TableRow>
+        </TableHeader>
+        <TableBody deselectOnClickaway={false} showRowHover displayRowCheckbox={false}>
         {this.props.todoLists.map (todoList => (
-            <li key={todoList._id}>
-            <Link to={`/${todoList._id}`}>{`${todoList.todoList}`}</Link>
-            </li>
+            <TableRow>
+            <TableRowColumn><Link to={`/${todoList._id}`}>{`${todoList.todoList}`}</Link></TableRowColumn>
+            <TableRowColumn>{todoList.todos.length}</TableRowColumn>
+            </TableRow>
         ))}
+        </TableBody>
+        </Table>
         </div>
+        </MuiThemeProvider>
     )
 
 }

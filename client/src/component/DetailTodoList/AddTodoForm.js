@@ -34,7 +34,7 @@ class AddTodoForm extends React.Component {
                 pathname,
                 todo,
                 limitDay
-        })
+            })
             .then(response => {
             console.log(response)
             this.props.initializeForm()
@@ -56,19 +56,19 @@ class AddTodoForm extends React.Component {
         <div>
             <form>
                 <label>
-                新しいTodo<br />
+                新しいTodoを作成する<br />
                 <TextField hintText="Todo" value={todo} errorText= {this.state.errorText} onChange={e => this.props.addTodos(e.target.value)} />
                 </label>
                 <label>
                 Todoの期限日:
-                    <input type="date" value={limitDay} onChange={e => this.props.addDay(e.target.value)} />
+                <input type="date" value={limitDay} onChange={e => this.props.addDay(e.target.value)} required />
                 </label>
                 <RaisedButton label="Todoの作成" primary={true} onClick={e => handleSubmit(e)} /><br />
             </form>
         </div>
         </MuiThemeProvider>
     )
-}
+    }
 }
 
 export default AddTodoForm

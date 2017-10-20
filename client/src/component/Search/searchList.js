@@ -12,7 +12,6 @@ class SearchList extends Component{
 
     render(){
         console.log(this.props.searchList)
-        const { order, ...otherProps } = this.props;
         const hitListcount = this.props.searchList.length>0 ? <p>Todoリストが{this.props.searchList.length}件がヒットしました</p>:<p>対象のTodoリストは見つかりません</p>
         const hitTodoCount = this.props.searchTodo.length>0 ? <p>Todoが{this.props.searchTodo.length}件がヒットしました</p>:<p>対象のTodoは見つかりません</p> 
         return(
