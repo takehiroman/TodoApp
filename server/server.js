@@ -7,7 +7,7 @@ import TodoList from './todolist'
 import dateFormat from 'dateformat'
 const port = 3001
 
-const dbUrl = 'mongodb://localhost/todoListss'
+const dbUrl = 'mongodb://localhost/todoList'
 
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
