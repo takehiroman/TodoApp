@@ -134,6 +134,6 @@ mongoose.connect(dbUrl,dbErr => {
 })
 
 //静的ファイルの読み込み
-app.use(express.static(path.join(__dirname,'client/build')))
+app.use(express.static(path.join(__dirname,'../client/build')))
 
 
