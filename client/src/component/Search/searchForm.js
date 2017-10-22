@@ -13,8 +13,13 @@ class SearchForm extends Component{
     render(){
         const keyword = this.props.formSearch
 
+        const _onKeyPress = e =>  {
+            if (e.charCode === 13) { 
+              e.preventDefault();
+            } 
+          }
+
         const handleSubmit = e => {
-            e.preventDefault()
 
             this.props.requestData()
             axios.get('/api/search',{params:{word:keyword}})
@@ -56,7 +61,7 @@ class SearchForm extends Component{
             <MuiThemeProvider>
             <div>
                 <form>
-                    <TextField hintText="キーワード" value={keyword} onChange={e => this.props.searchWord(e.target.value)} />
+                    <TextField hintText="キーワード" value={keyword} onKeyPress={_onKeyPress} onChange={e => this.props.searchWord(e.target.value)} />
                     <RaisedButton label="検索" primary={true} onClick={e => handleSubmit(e)} /><br />
                 </form>
             </div>

@@ -20,6 +20,12 @@ class AddTodoForm extends React.Component {
     const todo = this.props.formTodo
     const limitDay = this.props.formDay
 
+    const _onKeyPress = e =>  {
+        if (e.charCode === 13) { 
+          e.preventDefault();
+        } 
+    }
+    
     const handleSubmit = e => {
 
         if (todo === "") {
@@ -27,8 +33,6 @@ class AddTodoForm extends React.Component {
         } else if(todo.length > 30) {
             this.setState({ errorText: '30文字以内にしてください' })
         } else {
-            //formのsubmitした時のデフォルト動作を抑制
-            e.preventDefault()
             this.props.requestData()
             axios.post('/api/todo',{
                 pathname,
@@ -57,7 +61,7 @@ class AddTodoForm extends React.Component {
             <form>
                 <label>
                 新しいTodoを作成する<br />
-                <TextField hintText="Todo" value={todo} errorText= {this.state.errorText} onChange={e => this.props.addTodos(e.target.value)} />
+                <TextField hintText="Todo" value={todo} onKeyPress={_onKeyPress} errorText= {this.state.errorText} onChange={e => this.props.addTodos(e.target.value)} />
                 </label>
                 <label>
                 Todoの期限日:

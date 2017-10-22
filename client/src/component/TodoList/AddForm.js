@@ -15,6 +15,13 @@ class AddForm extends Component{
     render(){
         //formからの内容を取得する
         const todoList = this.props.form
+
+        const _onKeyPress = e =>  {
+            if (e.charCode === 13) { 
+              e.preventDefault();
+            } 
+        }
+
         const handleSubmit = e => {
 
         if (todoList === "") {
@@ -51,7 +58,7 @@ class AddForm extends Component{
             <form>
                 <label>
                     新しいTodoリストを作成する<br />
-                    <TextField hintText="リスト名を入力してください" value={todoList} errorText= {this.state.errorText} onChange={e => this.props.addTodo(e.target.value)} />
+                    <TextField hintText="リスト名を入力してください" value={todoList} onKeyPress={_onKeyPress} errorText= {this.state.errorText} onChange={e => this.props.addTodo(e.target.value)} />
                 </label>
                 <RaisedButton label="リストの追加" primary={true} onClick={e => handleSubmit(e)} />
             </form>
