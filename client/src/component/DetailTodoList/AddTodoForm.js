@@ -30,7 +30,7 @@ class AddTodoForm extends React.Component {
 
         if (todo === "") {
             this.setState({ errorText: 'Todoリストが未入力です' })
-        } else if(todo.length > 30) {
+        } else if([...todo].length > 30) {
             this.setState({ errorText: '30文字以内にしてください' })
         } else {
             this.props.requestData()

@@ -26,7 +26,7 @@ class AddForm extends Component{
 
         if (todoList === "") {
             this.setState({ errorText: 'Todoリストが未入力です' })
-          } else if(todoList.length > 30) {
+          } else if([...todoList].length > 30) {
             this.setState({ errorText: '30文字以内にしてください' })
           } else {
             //formのsubmitした時のデフォルト動作を抑制
