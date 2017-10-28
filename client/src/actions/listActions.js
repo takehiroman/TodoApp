@@ -23,45 +23,45 @@ export const addDate = limitDate => ({
 })
 
 export const addTodos = todo => ({
-    type:TODO,
+    type: TODO,
     todo,
 })
 
 export const searchWord = word => ({
-    type:KEYWORD,
+    type: KEYWORD,
     word,
 })
 
 export const checkTodo = (todo) => ({
-    type:CHECK,
+    type: CHECK,
     todo
 })
 
 export const requestData = () => ({
-    type:REQUEST_DATA,
+    type: REQUEST_DATA,
 })
 
 export const receivedDataSuccess = todoListArray => ({
-    type:RECEIVE_DATA_SUCCESS,
+    type: RECEIVE_DATA_SUCCESS,
     todoListArray,
 })
 
 export const receivedSearchDataSuccess = searchListArray => ({
-    type:RECEIVE_SEARCH_DATA_SUCCESS,
+    type: RECEIVE_SEARCH_DATA_SUCCESS,
     searchListArray
 })
 export const receivedSearchTodoSuccess = searchTodoArray => ({
-    type:RECEIVE_SEARCH_TODO_SUCCESS,
+    type: RECEIVE_SEARCH_TODO_SUCCESS,
     searchTodoArray
 })
 
 export const receivedTodoDataSuccess = todoArray => ({
-    type:RECEIVE_TODO_DATA_SUCCESS,
+    type: RECEIVE_TODO_DATA_SUCCESS,
     todoArray,
 })
 
 export const receiveDataFaild = () => ({
-    type:RECEIVE_DATA_FAILD,
+    type: RECEIVE_DATA_FAILD,
 })
 
 export const initializeForm = () => ({

@@ -4,15 +4,15 @@ import Searchlist from '../../containers/SearchList';
 
 class Search extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.props = props
   }
-  
+
   render() {
     return (
       <div>
-        <SearchForm  />
+        <SearchForm />
         <Searchlist />
       </div>
     );

@@ -1,31 +1,31 @@
-import {connect} from 'react-redux'
-import {receivedSearchDataSuccess,receivedSearchTodoSuccess,receiveDataFaild,requestData} from '../actions/listActions'
+import { connect } from 'react-redux'
+import { receivedSearchDataSuccess, receivedSearchTodoSuccess, receiveDataFaild, requestData } from '../actions/listActions'
 import SearchListComp from '../component/Search/SearchList'
 
 
 const mapStateToProps = (state) => {
-    return{
-        searchList:state.searchLists.searchListArray,
-        searchTodo:state.searchLists.searchTodoArray,
-        Fetching:state.searchLists.isFetching
+    return {
+        searchList: state.searchLists.searchListArray,
+        searchTodo: state.searchLists.searchTodoArray,
+        Fetching: state.searchLists.isFetching
     }
 
 }
 
 const mapDispatchProps = (dispatch) => {
-    return{
-        receivedSearchDataSuccess:(searchListArray) => {
+    return {
+        receivedSearchDataSuccess: (searchListArray) => {
             dispatch(receivedSearchDataSuccess(searchListArray))
         },
-        receivedSearchTodoSuccess:(searchTodoArray) => {
+        receivedSearchTodoSuccess: (searchTodoArray) => {
             dispatch(receivedSearchTodoSuccess(searchTodoArray))
         },
-        receiveDataFaild:() => {
+        receiveDataFaild: () => {
             dispatch(receiveDataFaild())
         },
-        requestData:() => {
+        requestData: () => {
             dispatch(requestData())
-        } 
+        }
     }
 }
 

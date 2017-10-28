@@ -1,4 +1,4 @@
-import {BrowserRouter,Switch, Route} from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import App from './component/App'
 import React from 'react'
 import Todo from './component/DetailTodoList/Todo'

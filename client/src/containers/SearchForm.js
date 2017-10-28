@@ -1,35 +1,35 @@
-import {connect} from 'react-redux'
-import {searchWord,initializeForm,receivedSearchTodoSuccess,receivedSearchDataSuccess,receiveDataFaild,requestData} from '../actions/listActions'
+import { connect } from 'react-redux'
+import { searchWord, initializeForm, receivedSearchTodoSuccess, receivedSearchDataSuccess, receiveDataFaild, requestData } from '../actions/listActions'
 import SearchFormComp from '../component/Search/SearchForm'
 
 
 const mapStateToProps = (state) => {
-    return{
-        formSearch:state.searchForm.word,
+    return {
+        formSearch: state.searchForm.word,
     }
 
 }
 
 const mapDispatchProps = (dispatch) => {
-    return{
-        searchWord:(word) => {
+    return {
+        searchWord: (word) => {
             dispatch(searchWord(word))
         },
-        initializeForm:() => {
+        initializeForm: () => {
             dispatch(initializeForm())
         },
-        receivedSearchDataSuccess:(searchListArray) => {
+        receivedSearchDataSuccess: (searchListArray) => {
             dispatch(receivedSearchDataSuccess(searchListArray))
         },
-        receivedSearchTodoSuccess:(searchTodoArray) => {
+        receivedSearchTodoSuccess: (searchTodoArray) => {
             dispatch(receivedSearchTodoSuccess(searchTodoArray))
         },
-        receiveDataFaild:() => {
+        receiveDataFaild: () => {
             dispatch(receiveDataFaild())
         },
-        requestData:() => {
+        requestData: () => {
             dispatch(requestData())
-        } 
+        }
     }
 }
 

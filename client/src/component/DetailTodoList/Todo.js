@@ -4,11 +4,11 @@ import AddTodo from '../../containers/AddTodoForm';
 
 class Todo extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.props = props
   }
-  
+
   render() {
     //pathを取得
     const pathname = this.props.location.pathname

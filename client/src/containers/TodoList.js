@@ -1,23 +1,23 @@
-import {connect} from 'react-redux'
-import {requestData,receivedDataSuccess,receiveDataFaild} from '../actions/listActions'
+import { connect } from 'react-redux'
+import { requestData, receivedDataSuccess, receiveDataFaild } from '../actions/listActions'
 import TodoListCompo from '../component/TodoList/TodoList'
 
 const mapStateToProps = (state) => {
-    console.log('state:',state)
-    return{
-        todoLists:state.todoLists.todoListArray
+    console.log('state:', state)
+    return {
+        todoLists: state.todoLists.todoListArray
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return{
-        requestData:() => {
+    return {
+        requestData: () => {
             dispatch(requestData())
         },
-        receivedDataSuccess:(todoListArray) => {
+        receivedDataSuccess: (todoListArray) => {
             dispatch(receivedDataSuccess(todoListArray))
         },
-        receiveDataFaild:() => {
+        receiveDataFaild: () => {
             dispatch(receiveDataFaild())
         }
     }
