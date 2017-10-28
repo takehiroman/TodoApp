@@ -24,8 +24,9 @@ class AddForm extends Component{
 
         const handleSubmit = e => {
 
-        if (todoList === "") {
+        if (todoList === "" || todoList.replace(/^\s+|\s+$/g,"") === "") {
             this.setState({ errorText: 'Todoリストが未入力です' })
+            this.props.initializeForm()
           } else if([...todoList].length > 30) {
             this.setState({ errorText: '30文字以内にしてください' })
           } else {

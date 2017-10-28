@@ -28,8 +28,9 @@ class AddTodoForm extends React.Component {
     
     const handleSubmit = e => {
 
-        if (todo === "") {
+        if (todo === "" || todo.replace(/^\s+|\s+$/g,"") === "") {
             this.setState({ errorText: 'Todoリストが未入力です' })
+            this.props.initializeForm()
         } else if([...todo].length > 30) {
             this.setState({ errorText: '30文字以内にしてください' })
         } else {
