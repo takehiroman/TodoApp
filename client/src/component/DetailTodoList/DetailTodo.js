@@ -91,7 +91,7 @@ class DetailTodo extends React.Component{
                 <TableRowColumn><p>{todo.todo}</p></TableRowColumn>
                 <TableRowColumn><button onClick={() => checkTodo(todo._id,todo.check)}>{todo.check===0?"未完了":"完了"}</button></TableRowColumn>
                 <TableRowColumn>{moment(todo.limitDate).format('YYYY/MM/DD')}</TableRowColumn>
-                <TableRowColumn>{moment(todo.createDate).format('YYYY//MM/DD')}</TableRowColumn>
+                <TableRowColumn>{moment(todo.createDate).format('YYYY/MM/DD')}</TableRowColumn>
                 </TableRow>
             ))}
             </TableBody>

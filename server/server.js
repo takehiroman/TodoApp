@@ -35,7 +35,7 @@ mongoose.connect(dbUrl,dbErr => {
     app.post('/api/todo',(request,response) => {
         console.log(request.body.pathname)
         const todos = {
-            limitDate:request.body.limitDaate,
+            limitDate:request.body.limitDate,
             todo:request.body.todo
         }
 
