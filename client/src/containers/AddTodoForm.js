@@ -1,12 +1,12 @@
 import {connect} from 'react-redux'
-import {addTodos,addDay,initializeForm,requestData,receivedTodoDataSuccess,receiveDataFaild} from '../actions/listActions'
+import {addTodos,addDate,initializeForm,requestData,receivedTodoDataSuccess,receiveDataFaild} from '../actions/listActions'
 import AddTodoFormComp from '../component/DetailTodoList/AddTodoForm'
 
 
 const mapStateToProps = (state) => {
     return{
         formTodo:state.todoForm.todo,
-        formDay:state.todoForm.limitDay
+        formDate:state.todoForm.limitDate
     }
 
 }
@@ -16,8 +16,8 @@ return{
     addTodos:(todo) => {
         dispatch(addTodos(todo))
     },
-    addDay:(limitDay) => {
-        dispatch(addDay(limitDay))
+    addDate:(limitDate) => {
+        dispatch(addDate(limitDate))
     },
     requestData:() => {
         dispatch(requestData())

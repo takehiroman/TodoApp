@@ -8,8 +8,8 @@ const TodoListSchema = new mongoose.Schema({
     createdDate : {type: Date, default: Date.now},
     todos:[{
         todo:{type:String},
-        createDay:{type: Date, default: Date.now},
-        limitDay:{type:Date},
+        createDate:{type: Date, default: Date.now},
+        limitDate:{type:Date},
         check:{type:Number,default:0}
     }]
 })

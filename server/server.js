@@ -34,9 +34,8 @@ mongoose.connect(dbUrl,dbErr => {
 
     app.post('/api/todo',(request,response) => {
         console.log(request.body.pathname)
-        //const { todo,createDay,limitDay } = request.body
         const todos = {
-            limitDay:request.body.limitDay,
+            limitDate:request.body.limitDaate,
             todo:request.body.todo
         }
 
@@ -101,7 +100,7 @@ mongoose.connect(dbUrl,dbErr => {
         TodoList.findById({_id:pathdesu},(err,todoArray) => {
             if(err) response.status(500).send()
             else response.status(200).send(todoArray)
-        }).sort({createDay:1})
+        }).sort({createDate:1})
     })
 
     app.get('/api/search',(request,response) => {

@@ -28,8 +28,8 @@ class SearchList extends Component{
                     <TableRow>
                     <TableRowColumn><Link to={`/${searchTodo.id}`}>{`${searchTodo.todo}`}</Link></TableRowColumn>
                     <TableRowColumn>{searchTodo.todoname}</TableRowColumn>
-                    <TableRowColumn>{moment(searchTodo.createDay).format('YYYY/MM/DD')}</TableRowColumn>
-                    <TableRowColumn>{moment(searchTodo.limitDay).format('YYYY/MM/DD')}</TableRowColumn>
+                    <TableRowColumn>{moment(searchTodo.createDate).format('YYYY/MM/DD')}</TableRowColumn>
+                    <TableRowColumn>{moment(searchTodo.limitDate).format('YYYY/MM/DD')}</TableRowColumn>
                     </TableRow>
                 ))}
                 </TableBody>

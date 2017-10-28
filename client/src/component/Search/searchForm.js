@@ -17,7 +17,7 @@ class SearchForm extends Component{
             if (e.charCode === 13) { 
               e.preventDefault();
             } 
-          }
+        }
 
         const handleSubmit = e => {
 

@@ -18,7 +18,7 @@ class AddTodoForm extends React.Component {
     const pathname = location
     //formからの内容を取得する
     const todo = this.props.formTodo
-    const limitDay = this.props.formDay
+    const limitDate = this.props.formDate
 
     const _onKeyPress = e =>  {
         if (e.charCode === 13) { 
@@ -37,7 +37,7 @@ class AddTodoForm extends React.Component {
             axios.post('/api/todo',{
                 pathname,
                 todo,
-                limitDay
+                limitDate
             })
             .then(response => {
             console.log(response)
@@ -65,7 +65,7 @@ class AddTodoForm extends React.Component {
                 </label>
                 <label>
                 Todoの期限日:
-                <input type="date" value={limitDay} onChange={e => this.props.addDay(e.target.value)} required />
+                <input type="date" value={limitDate} onChange={e => this.props.addDate(e.target.value)} required />
                 </label>
                 <RaisedButton label="Todoの作成" primary={true} onClick={e => handleSubmit(e)} /><br />
             </form>

@@ -1,5 +1,5 @@
 export const TODOLIST = 'TODOLIST'
-export const DAY = 'DAY'
+export const DATE = 'DATE'
 export const TODO = 'TODO'
 export const CHECK = 'CHECK'
 export const KEYWORD = 'KEYWORD'
@@ -17,9 +17,9 @@ export const addTodo = todoList => ({
     todoList,
 })
 
-export const addDay = limitDay => ({
-    type: DAY,
-    limitDay,
+export const addDate = limitDate => ({
+    type: DATE,
+    limitDate,
 })
 
 export const addTodos = todo => ({
