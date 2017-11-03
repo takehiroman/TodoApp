@@ -3,6 +3,8 @@ import axios from 'axios'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import sanitizeHtml from 'sanitize-html';
+
 
 class AddForm extends Component {
 
@@ -30,6 +32,7 @@ class AddForm extends Component {
             } else if ([...todoList].length > 30) {
                 this.setState({ errorText: '30文字以内にしてください' })
             } else {
+                
                 //formのsubmitした時のデフォルト動作を抑制
                 e.preventDefault()
                 this.setState({ errorText: '' })

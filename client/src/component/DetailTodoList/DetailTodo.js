@@ -35,7 +35,6 @@ class DetailTodo extends React.Component {
         var nextState = this.props.todos.map(todo => {
             return {
                 id: todo._id,
-                checked: (todo._id === id ? !todo.check : todo.check)
             };
         });
 
