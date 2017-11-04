@@ -3,7 +3,6 @@ import axios from 'axios'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import sanitizeHtml from 'sanitize-html';
 
 
 class AddForm extends Component {

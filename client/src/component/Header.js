@@ -15,11 +15,11 @@ const Header = () => (
           anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
           targetOrigin={{ horizontal: 'left', vertical: 'top' }}
         >
-          <MenuItem linkButton
+          <MenuItem 
             containerElement={<Link to="/" />}
             primaryText="Todoリスト"
           />
-          <MenuItem linkButton
+          <MenuItem 
             containerElement={<Link to="/search" />}
             primaryText="検索"
           />

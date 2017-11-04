@@ -49,7 +49,7 @@ class TodoList extends React.Component {
                         </TableHeader>
                         <TableBody deselectOnClickaway={false} showRowHover displayRowCheckbox={false}>
                             {this.props.todoLists.map(todoList => (
-                                <TableRow>
+                                <TableRow key={todoList._id}>
                                     <TableRowColumn><Link to={`/${todoList._id}`}>{`${todoList.todoList}`}</Link></TableRowColumn>
                                     <TableRowColumn>{todoList.todos.length}</TableRowColumn>
                                     <TableRowColumn>{todoList.count}</TableRowColumn>

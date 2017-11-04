@@ -22,10 +22,10 @@ mongoose.connect(dbUrl, dbErr => {
         new TodoList({
             todoList,
         }).save(err => {
-            if (err) response.status(500)
-            else {
+            if (err) response.status(500).send({ 'SERVER_ERROR': err });
+            else if(TodoList) {
                 TodoList.find({}, (findErr, todoListArray) => {
-                    if (findErr) response.status(500).send()
+                    if (findErr) response.status(500).send({ 'SERVER_ERROR': err });
                     else response.status(200).send(todoListArray)
                 })
             }
@@ -33,7 +33,6 @@ mongoose.connect(dbUrl, dbErr => {
     })
 
     app.post('/api/todo', (request, response) => {
-        console.log(request.body.pathname)
         const todos = {
             limitDate: request.body.limitDate,
             todo: request.body.todo
@@ -44,12 +43,12 @@ mongoose.connect(dbUrl, dbErr => {
             { $push: { todos: todos } },
             { safe: true, upsert: true },
             err => {
-                if (err) response.status(500)
+                if (err) response.status(500).send({ 'SERVER_ERROR': err });
                 else {
                     TodoList.findById({ _id: request.body.pathname }, (findErr, todoArray) => {
-                        if (findErr) response.status(500).send()
-                        else response.status(200).send(todoArray)
-                        console.log(todoArray)
+                        if (findErr) response.status(500).send({ 'SERVER_ERROR': err });
+                        else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+                        else response.status(200).send(todoArray); 
                     })
                 }
             })
@@ -57,32 +56,28 @@ mongoose.connect(dbUrl, dbErr => {
     })
 
     app.put('/api/todo/check', (request, response) => {
-        console.log(request.body)
         const { id, pathname } = request.body
-        console.log(id)
         TodoList.update({ '_id': pathname, 'todos._id': id }, { $inc: { 'todos.$.check': 1 } }, err => {
-            if (err) response.status(500).send()
+            if (err) response.status(500).send().send({ 'SERVER_ERROR': err });
             else {
                 TodoList.findById({ _id: request.body.pathname }, {}, (findErr, todoArray) => {
-                    if (findErr) response.status(500).send()
-                    else response.status(200).send(todoArray)
-                    console.log(todoArray)
+                    if (findErr) response.status(500).send({ 'SERVER_ERROR': err });
+                    else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+                    else response.status(200).send(todoArray); 
                 })
             }
         })
     })
 
     app.put('/api/todo/uncheck', (request, response) => {
-        console.log(request.body)
         const { id, pathname } = request.body
-        console.log(id)
         TodoList.update({ '_id': pathname, 'todos._id': id }, { $inc: { 'todos.$.check': -1 } }, err => {
-            if (err) response.status(500).send()
+            if (err) response.status(500).send().send({ 'SERVER_ERROR': err });
             else {
                 TodoList.findById({ _id: request.body.pathname }, {}, (findErr, todoArray) => {
-                    if (findErr) response.status(500).send()
-                    else response.status(200).send(todoArray)
-                    console.log(todoArray)
+                    if (findErr) response.status(500).send({ 'SERVER_ERROR': err });
+                    else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+                    else response.status(200).send(todoArray); 
                 })
             }
         })
@@ -90,16 +85,18 @@ mongoose.connect(dbUrl, dbErr => {
 
     app.get('/api/todos', (request, response) => {
         TodoList.find({}, (err, todoListArray) => {
-            if (err) response.status(500).send()
-            else response.status(200).send(todoListArray)
+            if (err) response.status(500).send({ 'SERVER_ERROR': err });
+            else if(!todoListArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+            else response.status(200).send(todoListArray);                
         }).sort({ createdDate: -1 })
     })
 
     app.get(`/api/todo`, (request, response) => {
         const { pathdesu } = request.query
         TodoList.findById({ _id: pathdesu }, (err, todoArray) => {
-            if (err) response.status(500).send()
-            else response.status(200).send(todoArray)
+            if (err) response.status(500).send({ 'SERVER_ERROR': err });
+            else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+            else response.status(200).send(todoArray); 
         }).sort({ createDate: 1 })
     })
 
@@ -107,9 +104,9 @@ mongoose.connect(dbUrl, dbErr => {
         const { word } = request.query
         console.log(word)
         TodoList.find({ todoList: new RegExp(word, "i") }, (err, todoListArray) => {
-            if (err) response.status(500).send()
-            else response.status(200).send(todoListArray)
-            console.log(todoListArray)
+            if (err) response.status(500).send({ 'SERVER_ERROR': err });
+            else if(!todoListArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+            else response.status(200).send(todoListArray); 
 
         }).sort({ createdDate: -1 })
 
@@ -119,10 +116,9 @@ mongoose.connect(dbUrl, dbErr => {
         const { word } = request.query
         console.log(word)
         TodoList.find({ "todos.todo": new RegExp(word, "i") }, (err, todoArray) => {
-            if (err) response.status(500).send()
-            else response.status(200).send(todoArray)
-
-            console.log(todoArray)
+            if (err) response.status(500).send({ 'SERVER_ERROR': err });
+            else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+            else response.status(200).send(todoArray); 
         }).sort({ createdDate: -1 })
     })
 

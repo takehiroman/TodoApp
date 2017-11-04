@@ -42,7 +42,7 @@ class SearchList extends Component {
                             </TableHeader>
                             <TableBody displayRowCheckbox={false}>
                                 {this.props.searchList.map(searchList => (
-                                    <TableRow>
+                                    <TableRow key={searchList._id}>
                                         <TableRowColumn><Link to={`/${searchList._id}`}>{`${searchList.todoList}`}</Link></TableRowColumn>
                                         <TableRowColumn>{moment(searchList.createdDate).format('YYYY/MM/DD')}</TableRowColumn>
                                     </TableRow>

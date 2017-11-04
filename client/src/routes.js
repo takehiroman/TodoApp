@@ -4,6 +4,7 @@ import React from 'react'
 import Todo from './component/DetailTodoList/Todo'
 import Search from './component/Search/Search'
 import Header from './component/Header'
+import Error from './Error'
 
 export default (props) => (
   <BrowserRouter {...props}>
@@ -13,6 +14,7 @@ export default (props) => (
         <Route exact={true} path='/' component={App} />
         <Route path='/search' component={Search} />
         <Route path='/:_id' component={Todo} />
+        <Route path="*" component={Error} notFound />
       </Switch>
     </div>
   </BrowserRouter>
