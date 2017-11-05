@@ -40,7 +40,28 @@ class AddForm extends Component {
                 })
                     .then(response => {
                         this.props.initializeForm()
-                        const todoListArray = response.data
+                        const _todoListArray = response.data
+                        let todoListArray = []
+                        let j = 0
+                        let MinDate = 0
+                        let limitDates = []
+                        console.log(_todoListArray)
+                        for (const todo of _todoListArray) {
+                            for (let i = 0; i < todo.todos.length; i++) {
+                                j = j + todo.todos[i].check
+                                if(todo.todos[i].check === 0){
+                                    limitDates.push(new Date(todo.todos[i].limitDate))
+                                }
+                            }
+                            console.log(limitDates)
+                            MinDate = new Date(Math.min.apply(null,limitDates))
+                            console.log(MinDate)
+                            todo.count = j
+                            todo.limitDate = MinDate
+                            j = 0
+                            limitDates = []
+                            todoListArray.push(todo)
+                        }
                         this.props.receivedDataSuccess(todoListArray)
                     })
                     .catch(err => {

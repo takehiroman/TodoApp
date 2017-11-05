@@ -23,6 +23,10 @@ const Header = () => (
             containerElement={<Link to="/search" />}
             primaryText="検索"
           />
+          <MenuItem 
+          containerElement={<Link to="/bookmark" />}
+          primaryText="ブックマーク"
+          />
         </IconMenu>
       }
     />

@@ -27,7 +27,7 @@ mongoose.connect(dbUrl, dbErr => {
                 TodoList.find({}, (findErr, todoListArray) => {
                     if (findErr) response.status(500).send({ 'SERVER_ERROR': err });
                     else response.status(200).send(todoListArray)
-                })
+                }).sort({ createdDate: -1 })
             }
         })
     })
@@ -83,6 +83,34 @@ mongoose.connect(dbUrl, dbErr => {
         })
     })
 
+    app.put('/api/todo/mark', (request, response) => {
+        const { id, pathname } = request.body
+        TodoList.update({ '_id': pathname, 'todos._id': id }, { $inc: { 'todos.$.bookmark': 1 } }, err => {
+            if (err) response.status(500).send().send({ 'SERVER_ERROR': err });
+            else {
+                TodoList.findById({ _id: request.body.pathname }, {}, (findErr, todoArray) => {
+                    if (findErr) response.status(500).send({ 'SERVER_ERROR': err });
+                    else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+                    else response.status(200).send(todoArray); 
+                })
+            }
+        })
+    })
+
+    app.put('/api/todo/unmark', (request, response) => {
+        const { id, pathname } = request.body
+        TodoList.update({ '_id': pathname, 'todos._id': id }, { $inc: { 'todos.$.bookmark': -1 } }, err => {
+            if (err) response.status(500).send().send({ 'SERVER_ERROR': err });
+            else {
+                TodoList.findById({ _id: request.body.pathname }, {}, (findErr, todoArray) => {
+                    if (findErr) response.status(500).send({ 'SERVER_ERROR': err });
+                    else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+                    else response.status(200).send(todoArray); 
+                })
+            }
+        })
+    })
+
     app.get('/api/todos', (request, response) => {
         TodoList.find({}, (err, todoListArray) => {
             if (err) response.status(500).send({ 'SERVER_ERROR': err });
@@ -97,7 +125,7 @@ mongoose.connect(dbUrl, dbErr => {
             if (err) response.status(500).send({ 'SERVER_ERROR': err });
             else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
             else response.status(200).send(todoArray); 
-        }).sort({ createDate: 1 })
+        })
     })
 
     app.get('/api/search', (request, response) => {
@@ -119,6 +147,14 @@ mongoose.connect(dbUrl, dbErr => {
             if (err) response.status(500).send({ 'SERVER_ERROR': err });
             else if(!todoArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
             else response.status(200).send(todoArray); 
+        }).sort({ createDate: -1 })
+    })
+
+    app.get('/api/bookmarkTodo', (request, response) => {
+        TodoList.find({}, (err, todoListArray) => {
+            if (err) response.status(500).send({ 'SERVER_ERROR': err });
+            else if(!todoListArray) response.status(404).send({ 'RESOURCE_NOT_FOUND': err });
+            else response.status(200).send(todoListArray);                
         }).sort({ createdDate: -1 })
     })
 

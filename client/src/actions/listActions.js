@@ -1,7 +1,6 @@
 export const TODOLIST = 'TODOLIST'
 export const DATE = 'DATE'
 export const TODO = 'TODO'
-export const CHECK = 'CHECK'
 export const KEYWORD = 'KEYWORD'
 export const INITIALIZE_FORM = 'INITIALIZE_FORM'
 export const REQUEST_DATA = 'REQUEST_DATA'
@@ -10,7 +9,7 @@ export const RECEIVE_TODO_DATA_SUCCESS = 'RECEIVE_TODO_DATA_SUCCESS'
 export const RECEIVE_SEARCH_TODO_SUCCESS = 'RECEIVE_SEARCH_TODO_SUCCESS'
 export const RECEIVE_SEARCH_DATA_SUCCESS = 'RECEIVE_SEARCH_DATA_SUCCESS'
 export const RECEIVE_DATA_FAILD = 'RECEIVE_DATA_FAILD'
-
+export const RECEIVE_BOOKMARK_DATA_SUCCESS = 'RECEIVE_BOOKMARK_DATA_SUCCESS'
 //action creaters
 export const addTodo = todoList => ({
     type: TODOLIST,
@@ -30,11 +29,6 @@ export const addTodos = todo => ({
 export const searchWord = word => ({
     type: KEYWORD,
     word,
-})
-
-export const checkTodo = (todo) => ({
-    type: CHECK,
-    todo
 })
 
 export const requestData = () => ({
@@ -58,6 +52,11 @@ export const receivedSearchTodoSuccess = searchTodoArray => ({
 export const receivedTodoDataSuccess = todoArray => ({
     type: RECEIVE_TODO_DATA_SUCCESS,
     todoArray,
+})
+
+export const receivedBookmarkDataSuccess = bookmarkListArray => ({
+    type: RECEIVE_BOOKMARK_DATA_SUCCESS,
+    bookmarkListArray,
 })
 
 export const receiveDataFaild = () => ({

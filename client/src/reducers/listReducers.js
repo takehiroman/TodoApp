@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { TODOLIST, TODO, DATE, CHECK, KEYWORD, INITIALIZE_FORM, REQUEST_DATA, RECEIVE_SEARCH_DATA_SUCCESS, RECEIVE_SEARCH_TODO_SUCCESS, RECEIVE_TODO_DATA_SUCCESS, RECEIVE_DATA_SUCCESS, RECEIVE_DATA_FAILD } from '../actions/listActions'
+import { TODOLIST, TODO, DATE,  KEYWORD, INITIALIZE_FORM, REQUEST_DATA, RECEIVE_SEARCH_DATA_SUCCESS, RECEIVE_SEARCH_TODO_SUCCESS, RECEIVE_BOOKMARK_DATA_SUCCESS,RECEIVE_TODO_DATA_SUCCESS, RECEIVE_DATA_SUCCESS, RECEIVE_DATA_FAILD } from '../actions/listActions'
 
 //初期のstate
 export const initialState = {
@@ -11,8 +11,7 @@ export const initialState = {
     },
     todoForm: {
         todo: '',
-        limitDate: '',
-        check: 0
+        limitDate: ''
     },
     todos: {
         isFetching: false,
@@ -24,6 +23,9 @@ export const initialState = {
     searchLists: {
         searchListArray: [],
         searchTodoArray: []
+    },
+    bookmarkLists: {
+        bookmarkListArray: [],
     },
 }
 //formのreducer
@@ -75,13 +77,6 @@ const todoFormReducer = (state = initialState.todoForm, action) => {
             }
         case INITIALIZE_FORM:
             return initialState.todoForm
-        case CHECK:
-            if (state.todo !== action.todo) {
-                return { ...state }
-            }
-            return Object.assign({}, state, {
-                checked: !state.checked
-            })
         default:
             return state
     }
@@ -102,9 +97,6 @@ const todoReducer = (state = initialState.todos, action) => {
             return {
                 ...state,
             }
-        case CHECK:
-            return state.todoArray.map((t) =>
-                todoFormReducer(t, action))
 
         default:
             return state
@@ -153,6 +145,27 @@ const searchListReducer = (state = initialState.searchLists, action) => {
     }
 }
 
+const bookmarkListReducer = (state = initialState.bookmarkLists, action) => {
+    switch (action.type) {
+        case REQUEST_DATA:
+            return {
+                ...state,
+                isFetching: false
+            }
+        case RECEIVE_BOOKMARK_DATA_SUCCESS:
+            return {
+                ...state,
+                bookmarkListArray: action.bookmarkListArray
+            }
+        case RECEIVE_DATA_FAILD:
+            return {
+                ...state,
+            }
+        default:
+            return state
+    }
+}
+
 
 const rootReducer = combineReducers({
     form: formReducer,
@@ -160,7 +173,8 @@ const rootReducer = combineReducers({
     todoForm: todoFormReducer,
     todos: todoReducer,
     searchForm: searchFormReducer,
-    searchLists: searchListReducer
+    searchLists: searchListReducer,
+    bookmarkLists: bookmarkListReducer
 })
 
 export default rootReducer

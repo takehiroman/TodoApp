@@ -75,6 +75,34 @@ class DetailTodo extends React.Component {
 
         }
 
+        const checkMark = (id,bookmark) => {
+            if (bookmark === 0) {
+                this.props.requestData()
+                axios.put('/api/todo/mark', {
+                    id, pathname
+                })
+                    .then(response => {
+                        const _todoArray = response.data.todos
+                        this.props.receivedTodoDataSuccess(_todoArray)
+                    })
+                    .catch(err => {
+                        this.props.receiveDataFaild()
+                    })
+            } else {
+                this.props.requestData()
+                axios.put('/api/todo/unmark', {
+                    id, pathname
+                })
+                    .then(response => {
+                        const _todoArray = response.data.todos
+                        this.props.receivedTodoDataSuccess(_todoArray)
+                    })
+                    .catch(err => {
+                        this.props.receiveDataFaild()
+                    })
+            }
+        }
+
         const TodoCount = this.props.todos.length <= 0 ? <p>登録されたTodoはございません</p> : <p></p>
         return (
             <MuiThemeProvider>
@@ -82,13 +110,14 @@ class DetailTodo extends React.Component {
                     {TodoCount}
                     <Table>
                         <TableHeader displaySelectAll={false}>
-                            <TableRow><TableHeaderColumn>Todo</TableHeaderColumn><TableHeaderColumn>Todoの状態</TableHeaderColumn><TableHeaderColumn>期限日</TableHeaderColumn><TableHeaderColumn>作成日</TableHeaderColumn></TableRow>
+                            <TableRow><TableHeaderColumn>Todo</TableHeaderColumn><TableHeaderColumn>Todoの状態</TableHeaderColumn><TableHeaderColumn>ブックマーク</TableHeaderColumn><TableHeaderColumn>期限日</TableHeaderColumn><TableHeaderColumn>作成日</TableHeaderColumn></TableRow>
                         </TableHeader>
                         <TableBody deselectOnClickaway={false} showRowHover displayRowCheckbox={false}>
                             {this.props.todos.map(todo => (
                                 <TableRow key={todo._id}>
                                     <TableRowColumn><p>{todo.todo}</p></TableRowColumn>
                                     <TableRowColumn><button onClick={() => checkTodo(todo._id, todo.check)}>{todo.check === 0 ? "未完了" : "完了"}</button></TableRowColumn>
+                                    <TableRowColumn><button onClick={() => checkMark(todo._id, todo.bookmark)}>{todo.bookmark === 0 ? "追加" : "削除"}</button></TableRowColumn>
                                     <TableRowColumn>{moment(todo.limitDate).format('YYYY/MM/DD')}</TableRowColumn>
                                     <TableRowColumn>{moment(todo.createDate).format('YYYY/MM/DD')}</TableRowColumn>
                                 </TableRow>

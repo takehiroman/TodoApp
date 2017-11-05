@@ -10,7 +10,8 @@ const TodoListSchema = new mongoose.Schema({
         todo: { type: String },
         createDate: { type: Date, default: Date.now },
         limitDate: { type: Date },
-        check: { type: Number, default: 0 }
+        check: { type: Number, default: 0 },
+        bookmark: {type: Number, default: 0}
     }]
 })
 
