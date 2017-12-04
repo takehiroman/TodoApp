@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "dateformat": "^3.0.2",
+    "grapheme-splitter": "^1.0.2",
     "material-ui": "^0.19.4",
     "moment": "^2.19.1",
     "react": "^15.6.2",

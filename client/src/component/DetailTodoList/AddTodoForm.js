@@ -3,6 +3,7 @@ import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Splitter from 'grapheme-splitter'
 
 
 class AddTodoForm extends React.Component {
@@ -19,6 +20,7 @@ class AddTodoForm extends React.Component {
         //formからの内容を取得する
         const todo = this.props.formTodo
         const limitDate = this.props.formDate
+        const splitter = new Splitter();
 
         const _onKeyPress = e => {
             if (e.charCode === 13) {
@@ -31,9 +33,11 @@ class AddTodoForm extends React.Component {
             if (todo === "" || todo.replace(/^\s+|\s+$/g, "") === "") {
                 this.setState({ errorText: 'Todoリストが未入力です' })
                 this.props.initializeForm()
-            } else if ([...todo].length > 30) {
+            } else if (splitter.splitGraphemes(todo).length > 30) {
                 this.setState({ errorText: '30文字以内にしてください' })
             } else {
+                e.preventDefault()
+                this.setState({ errorText: '' })
                 this.props.requestData()
                 axios.post('/api/todo', {
                     pathname,

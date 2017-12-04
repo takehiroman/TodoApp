@@ -21,7 +21,6 @@ class TodoList extends React.Component {
                 let j = 0
                 let MinDate = 0
                 let limitDates = []
-                console.log(_todoListArray)
                 for (const todo of _todoListArray) {
                     for (let i = 0; i < todo.todos.length; i++) {
                         j = j + todo.todos[i].check
@@ -29,9 +28,7 @@ class TodoList extends React.Component {
                             limitDates.push(new Date(todo.todos[i].limitDate))
                         }
                     }
-                    console.log(limitDates)
                     MinDate = new Date(Math.min.apply(null,limitDates))
-                    console.log(MinDate)
                     todo.count = j
                     todo.limitDate = MinDate
                     j = 0
@@ -49,8 +46,6 @@ class TodoList extends React.Component {
 
     render() {
 
-
-        console.log(this.props.todoLists)
         return (
             <MuiThemeProvider>
                 <div>

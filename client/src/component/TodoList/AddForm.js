@@ -3,6 +3,7 @@ import axios from 'axios'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Splitter from 'grapheme-splitter'
 
 
 class AddForm extends Component {
@@ -16,7 +17,7 @@ class AddForm extends Component {
     render() {
         //formからの内容を取得する
         const todoList = this.props.form
-
+        const splitter = new Splitter();
         const _onKeyPress = e => {
             if (e.charCode === 13) {
                 e.preventDefault();
@@ -28,10 +29,9 @@ class AddForm extends Component {
             if (todoList === "" || todoList.replace(/^\s+|\s+$/g, "") === "") {
                 this.setState({ errorText: 'Todoリストが未入力です' })
                 this.props.initializeForm()
-            } else if ([...todoList].length > 30) {
+            } else if (splitter.splitGraphemes(todoList).length > 30) {
                 this.setState({ errorText: '30文字以内にしてください' })
             } else {
-                
                 //formのsubmitした時のデフォルト動作を抑制
                 e.preventDefault()
                 this.setState({ errorText: '' })
@@ -45,7 +45,6 @@ class AddForm extends Component {
                         let j = 0
                         let MinDate = 0
                         let limitDates = []
-                        console.log(_todoListArray)
                         for (const todo of _todoListArray) {
                             for (let i = 0; i < todo.todos.length; i++) {
                                 j = j + todo.todos[i].check
@@ -53,9 +52,7 @@ class AddForm extends Component {
                                     limitDates.push(new Date(todo.todos[i].limitDate))
                                 }
                             }
-                            console.log(limitDates)
                             MinDate = new Date(Math.min.apply(null,limitDates))
-                            console.log(MinDate)
                             todo.count = j
                             todo.limitDate = MinDate
                             j = 0
